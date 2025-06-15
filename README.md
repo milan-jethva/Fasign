@@ -1,30 +1,44 @@
-# Fasign landing page
+Fasign – AI-Powered Post Generator
 
-*Automatically synced with your [v0.dev](https://v0.dev) deployments*
+Fasign is a fast, creative, and intelligent AI tool that turns your image + text prompt into stunning, ready-to-use social media designs. Built for creators, small businesses, and marketers who want instant visual content — without needing to open design software.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/milans-projects-e6aea5ef/v0-fasign-landing-page)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/alUP9Dpxdjc)
+Live Website:
+https://fasign.vercel.app
 
-## Overview
+How It Works:
+1. Upload a .png image
+2. Enter a prompt (e.g., “Motivational quote with green nature background”)
+3. Generate with AI to get a beautiful post
+4. Preview and download instantly
 
-This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
+Key Features:
+- AI-powered image + text composition
+- FastAPI backend for image processing
+- React frontend with smooth UX
+- Instant download of final design
+- Deployed on Vercel
+- Website UI created using AI v0
 
-## Deployment
+Tech Stack:
+Frontend: React.js
+Backend: FastAPI
+Image Generation: Stability AI API
+Prompt Understanding: Gemini API
+Styling: Tailwind CSS
+Hosting: Vercel
+Website UI: v0.dev (AI-generated)
 
-Your project is live at:
+Future Vision:
+We aim to expand Fasign to support:
+- YouTube thumbnails
+- Banner ads
+- Story formats
+- Poster templates
+- Auto-generated brand kits
 
-**[https://vercel.com/milans-projects-e6aea5ef/v0-fasign-landing-page](https://vercel.com/milans-projects-e6aea5ef/v0-fasign-landing-page)**
+Team:
+Milan Jethva – Developer, Designer, Product Lead
+HACK THE VIBE – Official Hackathon Entry
 
-## Build your app
 
-Continue building your app on:
-
-**[https://v0.dev/chat/projects/alUP9Dpxdjc](https://v0.dev/chat/projects/alUP9Dpxdjc)**
-
-## How It Works
-
-1. Create and modify your project using [v0.dev](https://v0.dev)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+Join our mission – turning creativity into reality, instantly with AI.
