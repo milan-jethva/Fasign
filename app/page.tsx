@@ -45,49 +45,51 @@ export default function LandingPage() {
     }
   }
 
-  const handleGenerate = async () => {
-    if (!uploadedImage || !prompt) return
+ const handleGenerate = async () => {
+  if (!uploadedImage || !prompt) return
 
-    setIsGenerating(true)
+  setIsGenerating(true)
+  setError(null)
 
-    try {
-      // Create FormData to send image and prompt
-      const formData = new FormData()
-
-      // Convert base64 image to blob
-      const response = await fetch(uploadedImage)
-      const blob = await response.blob()
-      formData.append("image", blob, "image.png")
-      formData.append("prompt", prompt)
-
-      // Call your FastAPI endpoint
-      const apiResponse = await fetch(`${FASTAPI_URL}`, {
-        method: "POST",
-        body: formData,
-      })
-
-      if (!apiResponse.ok) {
-        throw new Error("Failed to generate design")
-      }
-
-      // Handle the response (adjust based on your API response format)
-      const result = await apiResponse.json()
-
-      // If your API returns a base64 image
-      if (result.generated_image) {
-        setGeneratedImage(`data:image/png;base64,${result.generated_image}`)
-      }
-      // If your API returns an image URL
-      else if (result.image_url) {
-        setGeneratedImage(result.image_url)
-      }
-    } catch (error) {
-      console.error("Error generating design:", error)
-      alert("Failed to generate design. Please try again.")
-    } finally {
-      setIsGenerating(false)
+  try {
+    // Convert base64 image to Blob
+    const base64 = uploadedImage.split(',')[1]
+    const mime = uploadedImage.split(',')[0].split(':')[1].split(';')[0]
+    const byteString = atob(base64)
+    const ab = new ArrayBuffer(byteString.length)
+    const ia = new Uint8Array(ab)
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i)
     }
+    const blob = new Blob([ab], { type: mime })
+
+    const formData = new FormData()
+    formData.append("image", blob, "image.png")
+    formData.append("user_prompt", prompt)  // 👈 MUST MATCH FASTAPI KEY
+
+    const apiResponse = await fetch("https://imageapi-backend.onrender.com/inpaint/", {
+      method: "POST",
+      body: formData,
+    })
+
+    if (!apiResponse.ok) {
+      const errText = await apiResponse.text()
+      console.error("API Error:", errText)
+      throw new Error("API request failed")
+    }
+
+    const result = await apiResponse.blob()
+    const imageUrl = URL.createObjectURL(result)
+    setGeneratedImage(imageUrl)
+
+  } catch (err) {
+    console.error("Error generating image:", err)
+    setError("Failed to generate image. Please try again.")
+  } finally {
+    setIsGenerating(false)
   }
+}
+
 
   const scrollToGenerator = () => {
     document.getElementById("generator")?.scrollIntoView({ behavior: "smooth" })
