@@ -10,12 +10,15 @@ import { Card } from "@/components/ui/card"
 import { MouseWaveEffect } from "@/components/mouse-wave-effect"
 import { Upload, Download, Twitter, Instagram, Linkedin, Github, ArrowRight } from "lucide-react"
 
+const FASTAPI_URL = "https://imageapi-backend.onrender.com/inpaint/" // Replace with your FastAPI URL
+
 export default function LandingPage() {
   const [uploadedImage, setUploadedImage] = useState<string | null>(null)
   const [prompt, setPrompt] = useState("")
   const [generatedImage, setGeneratedImage] = useState<string | null>(null)
   const [isGenerating, setIsGenerating] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [error, setError] = useState<string | null>(null)
 
   const demoImages = [
     { src: "/images/cosmetics-original.png", title: "Original Image" },
@@ -46,11 +49,44 @@ export default function LandingPage() {
     if (!uploadedImage || !prompt) return
 
     setIsGenerating(true)
-    // Simulate AI generation delay
-    setTimeout(() => {
-      setGeneratedImage("/placeholder.svg?height=400&width=400")
+
+    try {
+      // Create FormData to send image and prompt
+      const formData = new FormData()
+
+      // Convert base64 image to blob
+      const response = await fetch(uploadedImage)
+      const blob = await response.blob()
+      formData.append("image", blob, "image.png")
+      formData.append("prompt", prompt)
+
+      // Call your FastAPI endpoint
+      const apiResponse = await fetch(`${FASTAPI_URL}/generate-design`, {
+        method: "POST",
+        body: formData,
+      })
+
+      if (!apiResponse.ok) {
+        throw new Error("Failed to generate design")
+      }
+
+      // Handle the response (adjust based on your API response format)
+      const result = await apiResponse.json()
+
+      // If your API returns a base64 image
+      if (result.generated_image) {
+        setGeneratedImage(`data:image/png;base64,${result.generated_image}`)
+      }
+      // If your API returns an image URL
+      else if (result.image_url) {
+        setGeneratedImage(result.image_url)
+      }
+    } catch (error) {
+      console.error("Error generating design:", error)
+      alert("Failed to generate design. Please try again.")
+    } finally {
       setIsGenerating(false)
-    }, 3000)
+    }
   }
 
   const scrollToGenerator = () => {
@@ -272,6 +308,7 @@ export default function LandingPage() {
                 <div>
                   <label className="block text-sm font-medium mb-2">Generated Result</label>
                   <div className="border border-gray-600 rounded-lg p-8 min-h-80 flex items-center justify-center bg-gray-700/30">
+                    {error && <div className="text-red-400 text-center p-4 bg-red-900/20 rounded-lg mb-4">{error}</div>}
                     {isGenerating ? (
                       <div className="text-center space-y-4">
                         <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
