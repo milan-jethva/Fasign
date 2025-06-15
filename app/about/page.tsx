@@ -118,13 +118,13 @@ export default function AboutPage() {
                 <div>
                   <h3 className="text-2xl font-bold mb-4">Built with Passion</h3>
                   <p className="text-gray-300">
-                    Founded in 2024, Fasign was born from the frustration of spending hours on simple design tasks.
-                    We're a team of designers and engineers who believe technology should amplify creativity, not
-                    complicate it.
+                    Fasign was born from the frustration of spending hours on simple design tasks. Our mission is 
+                    to make high-quality content creation effortless — starting with AI-generated social media posts, 
+                    and expanding to include thumbnails, banners, posters, ads, and more.
                   </p>
                 </div>
                 <div className="pt-4 border-t border-gray-700">
-                  <p className="text-sm text-gray-400">Trusted by thousands of creators worldwide</p>
+                  <p className="text-sm text-gray-400">Be part of the future of fast, AI-powered design</p>
                 </div>
               </div>
             </Card>
@@ -137,7 +137,7 @@ export default function AboutPage() {
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-6">Ready to Transform Your Designs?</h2>
           <p className="text-gray-300 text-lg mb-8">
-            Join thousands of creators who are already using Fasign to bring their ideas to life.
+            Join our mission to make great design effortless for everyone.
           </p>
           <Link href="/#generator">
             <Button
