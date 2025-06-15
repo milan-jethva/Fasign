@@ -10,7 +10,7 @@ import { Card } from "@/components/ui/card"
 import { MouseWaveEffect } from "@/components/mouse-wave-effect"
 import { Upload, Download, Twitter, Instagram, Linkedin, Github, ArrowRight } from "lucide-react"
 
-const FASTAPI_URL = "https://imageapi-backend.onrender.com/inpaint/" // Replace with your FastAPI URL
+const FASTAPI_URL = "https://imageapi-backend.onrender.com" // Replace with your FastAPI URL
 
 export default function LandingPage() {
   const [uploadedImage, setUploadedImage] = useState<string | null>(null)
@@ -61,7 +61,7 @@ export default function LandingPage() {
       formData.append("prompt", prompt)
 
       // Call your FastAPI endpoint
-      const apiResponse = await fetch(`${FASTAPI_URL}/generate-design`, {
+      const apiResponse = await fetch(`${FASTAPI_URL}/inpaint/`, {
         method: "POST",
         body: formData,
       })
