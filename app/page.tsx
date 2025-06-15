@@ -9,8 +9,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Card } from "@/components/ui/card"
 import { MouseWaveEffect } from "@/components/mouse-wave-effect"
 import { Upload, Download, Twitter, Instagram, Linkedin, Github, ArrowRight } from "lucide-react"
-
-const FASTAPI_URL = "https://imageapi-backend.onrender.com/inpaint/" // Replace with your FastAPI URL
+// Replace with your FastAPI URL
 
 export default function LandingPage() {
   const [uploadedImage, setUploadedImage] = useState<string | null>(null)
@@ -329,11 +328,14 @@ export default function LandingPage() {
                 </div>
 
                 {generatedImage && (
-                  <Button className="w-full bg-green-600 hover:bg-green-700">
-                    <Download className="w-4 h-4 mr-2" />
-                    Download Image
-                  </Button>
+                  <a href={generatedImage} download="generated_image.png" target="_blank" rel="noopener noreferrer">
+                    <Button className="w-full bg-green-600 hover:bg-green-700">
+                      <Download className="w-4 h-4 mr-2" />
+                      Download Image
+                    </Button>
+                  </a>
                 )}
+
               </div>
             </div>
           </Card>
